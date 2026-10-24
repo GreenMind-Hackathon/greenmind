@@ -1,4 +1,1 @@
-docker stop vllm
-docker rename vllm vllm-maxseq48-test
-docker rename vllm-before-maxseq48-20261024-142119 vllm
-docker start vllm
+Original container restored as vllm. Candidate is stopped as vllm-test-maxseq48-20261024-142119

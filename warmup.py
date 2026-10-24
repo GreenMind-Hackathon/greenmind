@@ -92,12 +92,34 @@ def post(url, key, body, timeout):
         req.add_header("Authorization", f"Bearer {key}")
     with urllib.request.urlopen(req, timeout=timeout) as r:
         # stream=True: read the SSE stream to the end, like the grader does
-        first = None
+        # Read the SSE stream like the grader: TTFT = first chunk carrying output,
+        # TPOT = (last output chunk - first) / (completion_tokens - 1)
         t0 = time.time()
-        for line in r:
-            if first is None and line.startswith(b"data:"):
-                first = time.time() - t0
-        return first
+        first = last = None
+        usage = {}
+        for raw in r:
+            line = raw.strip()
+            if not line.startswith(b"data:"):
+                continue
+            payload = line[5:].strip()
+            if payload == b"[DONE]":
+                break
+            try:
+                chunk = json.loads(payload)
+            except ValueError:
+                continue
+            if chunk.get("usage"):
+                usage = chunk["usage"]
+            for ch in chunk.get("choices") or []:
+                d = ch.get("delta") or {}
+                if d.get("content") or d.get("reasoning") or d.get("reasoning_content") or d.get("tool_calls"):
+                    now = time.time() - t0
+                    if first is None:
+                        first = now
+                    last = now
+        n = usage.get("completion_tokens") or 0
+        tpot = (last - first) / (n - 1) if (first is not None and n > 1) else None
+        return {"ttft": first, "tpot": tpot, "prompt": usage.get("prompt_tokens") or 0}
 
 
 def get_model(base, key):
@@ -135,8 +157,7 @@ def main():
             body = dict(body, model=model, max_tokens=a.max_tokens, temperature=0,
                         stream=True, stream_options={"include_usage": True})
             try:
-                ttft = post(base + "/chat/completions", key, body, a.timeout)
-                res = ("ok", ttft)
+                res = ("ok", post(base + "/chat/completions", key, body, a.timeout))
             except Exception as e:  # keep going; report at the end
                 res = ("fail", str(e)[:120])
             with lock:
@@ -152,13 +173,25 @@ def main():
         took = time.time() - t0
 
         ok = sum(1 for _, (st, _) in results.values() if st == "ok")
-        print(f"Round {rnd}: {ok}/{len(reqs)} ok in {took:.1f}s")
         by_kind = {}
-        for kind, (st, val) in results.values():
-            if st == "ok" and val is not None:
-                by_kind.setdefault(kind, []).append(val)
-        for kind, vals in sorted(by_kind.items()):
-            print(f"   {kind:<10} max TTFT {max(vals):6.2f}s")
+        slo_total = 0
+        for kind, (st, m) in results.values():
+            if st != "ok" or m["ttft"] is None:
+                continue
+            ttft_slo = 0.5 + 0.25 * m["prompt"] / 1000          # grader's TTFT target
+            ok_ttft = m["ttft"] <= ttft_slo
+            ok_tpot = m["tpot"] is None or m["tpot"] <= 0.050   # grader's TPOT target
+            slo_total += ok_ttft and ok_tpot
+            by_kind.setdefault(kind, []).append((m, ok_ttft, ok_tpot))
+        print(f"Round {rnd}: {ok}/{len(reqs)} ok in {took:.1f}s   "
+              f"SLO met (TTFT+TPOT, ignoring the short max_tokens): {slo_total}/{len(reqs)}")
+        print(f"   {'type':<10} {'n':>2} {'max TTFT':>9} {'max TPOT':>9}  TTFT ok  TPOT ok")
+        for kind, rows in sorted(by_kind.items()):
+            tt = max(r[0]["ttft"] for r in rows)
+            tps = [r[0]["tpot"] for r in rows if r[0]["tpot"] is not None]
+            tp = f"{max(tps) * 1000:6.0f}ms" if tps else "     n/a"
+            print(f"   {kind:<10} {len(rows):>2} {tt:8.2f}s {tp:>9}  "
+                  f"{sum(r[1] for r in rows):>3}/{len(rows):<3}  {sum(r[2] for r in rows):>3}/{len(rows)}")
         for kind, (st, val) in results.values():
             if st != "ok":
                 print(f"   FAILED {kind}: {val}")

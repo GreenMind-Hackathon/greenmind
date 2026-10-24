@@ -1,0 +1,1303 @@
+[greenmind] shortest-prompt-first priority active (bucket=256 tokens) on OpenAIServingChat
+With `vllm serve`, you should provide the model as a positional argument or in a config file instead of via the `--model` option. The `--model` option will be removed in a future version.
+(APIServer pid=1) INFO 10-24 13:22:33 [api_utils.py:347] 
+(APIServer pid=1) INFO 10-24 13:22:33 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=1) INFO 10-24 13:22:33 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.32.0
+(APIServer pid=1) INFO 10-24 13:22:33 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /models/mango-w8a8
+(APIServer pid=1) INFO 10-24 13:22:33 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1) INFO 10-24 13:22:33 [api_utils.py:347] 
+(APIServer pid=1) INFO 10-24 13:22:33 [api_utils.py:286] non-default args: {'model_tag': '/models/mango-w8a8', 'enable_auto_tool_choice': True, 'tool_call_parser': 'qwen3_coder', 'host': '0.0.0.0', 'model': '/models/mango-w8a8', 'max_model_len': 49152, 'reasoning_parser': 'qwen3', 'enable_prefix_caching': True, 'max_num_batched_tokens': 2048, 'max_num_seqs': 72, 'long_prefill_token_threshold': 1024, 'scheduling_policy': 'priority', 'speculative_config': {'method': 'mtp', 'num_speculative_tokens': 2}}
+(APIServer pid=1) INFO 10-24 13:22:33 [model.py:733] Resolved architecture: Qwen3_5ForConditionalGeneration
+(APIServer pid=1) INFO 10-24 13:22:33 [model.py:2152] Using max model len 49152
+(APIServer pid=1) INFO 10-24 13:22:36 [model.py:733] Resolved architecture: Qwen3_5MTP
+(APIServer pid=1) INFO 10-24 13:22:36 [model.py:2152] Using max model len 262144
+(APIServer pid=1) INFO 10-24 13:22:36 [model.py:1008] Disabled mm_prefix attention mode because multimodal inputs are configuration-disabled. Attention backends without mm_prefix support may now be selected.
+(APIServer pid=1) WARNING 10-24 13:22:36 [speculative.py:1381] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(APIServer pid=1) INFO 10-24 13:22:36 [speculative.py:1669] Overriding draft model max model len from 262144 to 49152
+(APIServer pid=1) INFO 10-24 13:22:36 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5ForConditionalGeneration by default when prefix caching is enabled
+(APIServer pid=1) INFO 10-24 13:22:36 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(APIServer pid=1) WARNING 10-24 13:22:36 [vllm.py:2276] max_num_scheduled_tokens is set to 2048 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+(EngineCore pid=105) INFO 10-24 13:22:58 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/models/mango-w8a8', speculative_config=SpeculativeConfig(method='mtp', model='/models/mango-w8a8', num_spec_tokens=2), tokenizer='/models/mango-w8a8', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=49152, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=compressed-tensors, quantization_config=None, enforce_eager=False, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='qwen3', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, custom_histogram_buckets=None, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=/models/mango-w8a8, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::qwen4_exp_qsa_prepare_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 432, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(EngineCore pid=105) INFO 10-24 13:22:58 [parallel_state.py:1906] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_ef749fa2a26a4578abf870edb1cdba1a backend=nccl
+(EngineCore pid=105) INFO 10-24 13:22:58 [parallel_state.py:2350] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=105) INFO 10-24 13:22:58 [gpu_worker.py:518] Using V2 Model Runner
+(EngineCore pid=105) INFO 10-24 13:22:59 [model_runner.py:392] Loading model from scratch...
+(EngineCore pid=105) INFO 10-24 13:23:01 [cuda.py:565] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+(EngineCore pid=105) INFO 10-24 13:23:01 [mm_encoder_attention.py:372] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+(EngineCore pid=105) INFO 10-24 13:23:01 [__init__.py:846] Selected CutlassInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8
+(EngineCore pid=105) INFO 10-24 13:23:01 [qwen_gdn_linear_attn.py:221] Using Triton/FLA GDN prefill kernel (requested=auto, head_k_dim=128).
+(EngineCore pid=105) INFO 10-24 13:23:01 [qwen_gdn_linear_attn.py:620] GDN spec decode kernel: cuda
+(EngineCore pid=105) INFO 10-24 13:23:01 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore pid=105) INFO 10-24 13:23:01 [flash_attn.py:1117] Using FlashAttention version 2
+(EngineCore pid=105) INFO 10-24 13:23:02 [base_loader.py:82] Initializing model took 2.715529 seconds
+(EngineCore pid=105) INFO 10-24 13:23:02 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 10.70 GiB. Available RAM: 42.15 GiB.
+(EngineCore pid=105) INFO 10-24 13:23:02 [weight_utils.py:1131] Auto-prefetch is disabled because the filesystem (EXT4) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:01<00:01,  1.62s/it]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.23it/s]
+
+(EngineCore pid=105) INFO 10-24 13:23:03 [default_loader.py:501] Loading weights took 1.81 seconds
+(EngineCore pid=105) INFO 10-24 13:23:04 [base_loader.py:82] Initializing model took 0.010634 seconds
+(EngineCore pid=105) INFO 10-24 13:23:04 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 10.70 GiB. Available RAM: 41.96 GiB.
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  1.90it/s]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:00<00:00,  3.35it/s]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:00<00:00,  3.01it/s]
+
+(EngineCore pid=105) INFO 10-24 13:23:05 [default_loader.py:501] Loading weights took 0.68 seconds
+(EngineCore pid=105) INFO 10-24 13:23:06 [model_runner.py:424] Model loading took 11.62 GiB memory and 7.547421 seconds
+(EngineCore pid=105) INFO 10-24 13:23:06 [topk_topp_sampler.py:124] Using FlashInfer for top-p & top-k sampling.
+(EngineCore pid=105) INFO 10-24 13:23:06 [torch_utils.py:295] Reducing Torch threads from 16 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore pid=105) INFO 10-24 13:23:06 [interface.py:1096] Setting attention block size to 544 tokens to ensure that attention page size is >= mamba page size.
+(EngineCore pid=105) INFO 10-24 13:23:06 [interface.py:1120] Padding mamba page size by 2.26% to ensure that mamba page size and attention page size are exactly equal.
+(EngineCore pid=105) INFO 10-24 13:23:06 [utils.py:347] Using LBNHC KV cache layout.
+[transformers] Qwen3VL video processing does not apply the per-frame pixel cap the reference implementation (qwen-vl-utils) applies, so some videos cost far more tokens than they would there. In v5.22 the capped behavior will become the default and `cap_pixels_per_frame` will be removed. Pass `cap_pixels_per_frame=True` to adopt the reference behavior now, or `False` to keep the current behavior and silence this warning.
+(APIServer pid=1) INFO 10-24 13:23:11 [base.py:280] Multi-modal warmup completed in 21.645s
+(EngineCore pid=105) INFO 10-24 13:23:16 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 1 image items of the maximum feature size.
+(EngineCore pid=105) INFO 10-24 13:23:20 [monitor.py:40] [backbone] Starting torch.compile
+(EngineCore pid=105) INFO 10-24 13:23:27 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/50ca004697/rank_0_0/backbone for vLLM's torch.compile
+(EngineCore pid=105) INFO 10-24 13:23:27 [backends.py:1166] [backbone] Dynamo bytecode transform time: 6.75 s
+(EngineCore pid=105) INFO 10-24 13:23:44 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 16.94 s
+(EngineCore pid=105) INFO 10-24 13:23:47 [backends.py:927] collected artifacts: 33 entries, 13 artifacts, 13570930 bytes total
+(EngineCore pid=105) INFO 10-24 13:23:47 [decorators.py:743] [backbone] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/37818ef3c527aae6b90c25877fe1107a22f5ec90fd8f2ba7a8e8794f3180667e/rank_0_0/model
+(EngineCore pid=105) INFO 10-24 13:23:47 [monitor.py:62] [backbone] torch.compile took 27.36 s in total
+(EngineCore pid=105) INFO 10-24 13:25:14 [monitor.py:91] [backbone] Initial profiling/warmup run took 87.01 s
+(EngineCore pid=105) INFO 10-24 13:25:15 [monitor.py:40] [eagle_head] Starting torch.compile
+(EngineCore pid=105) INFO 10-24 13:25:15 [backends.py:1104] [eagle_head] Using cache directory: /root/.cache/vllm/torch_compile_cache/50ca004697/rank_0_0/eagle_head for vLLM's torch.compile
+(EngineCore pid=105) INFO 10-24 13:25:15 [backends.py:1166] [eagle_head] Dynamo bytecode transform time: 0.39 s
+(EngineCore pid=105) INFO 10-24 13:25:19 [backends.py:398] [eagle_head] Compiling a graph for compile range (1, 2048) takes 3.77 s
+(EngineCore pid=105) INFO 10-24 13:25:19 [backends.py:927] collected artifacts: 2 entries, 2 artifacts, 2645956 bytes total
+(EngineCore pid=105) INFO 10-24 13:25:19 [decorators.py:743] [eagle_head] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/784f6038bed911c27349246289cbc9f5b533bf39a77aca0904fdc5dfddae8fee/rank_0_0/model
+(EngineCore pid=105) INFO 10-24 13:25:19 [monitor.py:62] [eagle_head] torch.compile took 4.38 s in total
+(EngineCore pid=105) INFO 10-24 13:25:19 [monitor.py:91] [eagle_head] Initial profiling/warmup run took 0.00 s
+(EngineCore pid=105) WARNING 10-24 13:25:21 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 12.50% KV cache memory
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/49 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/49 [00:00<00:45,  1.06it/s]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/49 [00:01<00:23,  1.99it/s]Capturing CUDA graphs (PIECEWISE):   6%|▌         | 3/49 [00:01<00:16,  2.78it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 4/49 [00:01<00:13,  3.43it/s]Capturing CUDA graphs (PIECEWISE):  10%|█         | 5/49 [00:01<00:11,  3.95it/s]Capturing CUDA graphs (PIECEWISE):  12%|█▏        | 6/49 [00:01<00:09,  4.33it/s]Capturing CUDA graphs (PIECEWISE):  14%|█▍        | 7/49 [00:02<00:09,  4.62it/s]Capturing CUDA graphs (PIECEWISE):  16%|█▋        | 8/49 [00:02<00:08,  4.82it/s]Capturing CUDA graphs (PIECEWISE):  18%|█▊        | 9/49 [00:02<00:07,  5.00it/s]Capturing CUDA graphs (PIECEWISE):  20%|██        | 10/49 [00:02<00:07,  5.02it/s]Capturing CUDA graphs (PIECEWISE):  22%|██▏       | 11/49 [00:03<00:18,  2.05it/s]Capturing CUDA graphs (PIECEWISE):  24%|██▍       | 12/49 [00:03<00:14,  2.48it/s]Capturing CUDA graphs (PIECEWISE):  27%|██▋       | 13/49 [00:04<00:14,  2.55it/s]Capturing CUDA graphs (PIECEWISE):  29%|██▊       | 14/49 [00:04<00:11,  3.07it/s]Capturing CUDA graphs (PIECEWISE):  31%|███       | 15/49 [00:04<00:09,  3.65it/s]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 16/49 [00:04<00:07,  4.30it/s]Capturing CUDA graphs (PIECEWISE):  37%|███▋      | 18/49 [00:04<00:04,  6.72it/s]Capturing CUDA graphs (PIECEWISE):  43%|████▎     | 21/49 [00:05<00:02, 10.12it/s]Capturing CUDA graphs (PIECEWISE):  49%|████▉     | 24/49 [00:05<00:01, 12.82it/s]Capturing CUDA graphs (PIECEWISE):  55%|█████▌    | 27/49 [00:05<00:01, 14.90it/s]Capturing CUDA graphs (PIECEWISE):  61%|██████    | 30/49 [00:05<00:01, 16.39it/s]Capturing CUDA graphs (PIECEWISE):  65%|██████▌   | 32/49 [00:05<00:00, 17.15it/s]Capturing CUDA graphs (PIECEWISE):  71%|███████▏  | 35/49 [00:05<00:00, 17.80it/s]Capturing CUDA graphs (PIECEWISE):  76%|███████▌  | 37/49 [00:05<00:00, 18.08it/s]Capturing CUDA graphs (PIECEWISE):  80%|███████▉  | 39/49 [00:05<00:00, 18.44it/s]Capturing CUDA graphs (PIECEWISE):  84%|████████▎ | 41/49 [00:06<00:00, 18.80it/s]Capturing CUDA graphs (PIECEWISE):  88%|████████▊ | 43/49 [00:06<00:00, 19.06it/s]Capturing CUDA graphs (PIECEWISE):  92%|█████████▏| 45/49 [00:06<00:00, 19.24it/s]Capturing CUDA graphs (PIECEWISE):  98%|█████████▊| 48/49 [00:06<00:00, 19.59it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 49/49 [00:06<00:00,  7.35it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00, 25.12it/s]
+(EngineCore pid=105) INFO 10-24 13:25:28 [speculator.py:110] Capturing model for speculator...
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/49 [00:00<?, ?it/s]Capturing prefill CUDA graphs (PIECEWISE):  29%|██▊       | 14/49 [00:00<00:00, 131.72it/s]Capturing prefill CUDA graphs (PIECEWISE):  61%|██████    | 30/49 [00:00<00:00, 143.87it/s]Capturing prefill CUDA graphs (PIECEWISE):  98%|█████████▊| 48/49 [00:00<00:00, 158.31it/s]Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 49/49 [00:00<00:00, 153.76it/s]
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/30 [00:00<?, ?it/s]Capturing prefill CUDA graphs (FULL):  57%|█████▋    | 17/30 [00:00<00:00, 169.17it/s]Capturing prefill CUDA graphs (FULL): 100%|██████████| 30/30 [00:00<00:00, 177.22it/s]
+Capturing decode CUDA graphs (FULL):   0%|          | 0/15 [00:00<?, ?it/s]Capturing decode CUDA graphs (FULL):   7%|▋         | 1/15 [00:00<00:01,  7.22it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 15/15 [00:00<00:00, 73.06it/s]
+(EngineCore pid=105) INFO 10-24 13:25:30 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.66 GiB
+(EngineCore pid=105) INFO 10-24 13:25:30 [gpu_worker.py:759] Available KV cache memory: 19.71 GiB
+(EngineCore pid=105) INFO 10-24 13:25:30 [gpu_worker.py:774] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9200 is equivalent to --gpu-memory-utilization=0.9006 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9394. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=105) WARNING 10-24 13:25:30 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 12.50% KV cache memory
+(EngineCore pid=105) INFO 10-24 13:25:30 [kv_cache_utils.py:2327] GPU KV cache size: 503,450 tokens, Maximum concurrency for 49,152 tokens per request: 10.24x
+(EngineCore pid=105) INFO 10-24 13:25:30 [kv_cache_utils.py:853] kv cache group sizes (544, 544, 544, 544)
+(EngineCore pid=105) INFO 10-24 13:25:30 [kv_cache_utils.py:854] kv lcm block sizes 544
+(EngineCore pid=105) INFO 10-24 13:25:30 [kernel_warmup.py:176] JIT kernel warmup starting.
+(EngineCore pid=105) INFO 10-24 13:25:30 [kernel_warmup.py:189] JIT kernel warmup finished in 0.00s.
+(EngineCore pid=105) INFO 10-24 13:25:30 [qwen_triton_warmup.py:296] Warming up Qwen GDN Triton kernels for model_type=qwen3_5_text.
+(EngineCore pid=105) INFO 10-24 13:25:32 [qwen_vl_triton_warmup.py:57] Warmed position embedding and vision rotary kernels on grids=[(1, 16, 16), (1, 16, 2), (1, 2, 16), (1, 2, 2)].
+(EngineCore pid=105) INFO 10-24 13:25:32 [mamba_triton_warmup.py:42] Warmed Mamba batch_memcpy_kernel.
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/49 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/49 [00:00<00:10,  4.46it/s]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/49 [00:00<00:11,  4.17it/s]Capturing CUDA graphs (PIECEWISE):   6%|▌         | 3/49 [00:00<00:11,  4.18it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 4/49 [00:00<00:10,  4.10it/s]Capturing CUDA graphs (PIECEWISE):  10%|█         | 5/49 [00:01<00:10,  4.06it/s]Capturing CUDA graphs (PIECEWISE):  12%|█▏        | 6/49 [00:01<00:10,  4.08it/s]Capturing CUDA graphs (PIECEWISE):  14%|█▍        | 7/49 [00:01<00:10,  4.12it/s]Capturing CUDA graphs (PIECEWISE):  16%|█▋        | 8/49 [00:01<00:10,  4.09it/s]Capturing CUDA graphs (PIECEWISE):  18%|█▊        | 9/49 [00:02<00:09,  4.10it/s]Capturing CUDA graphs (PIECEWISE):  20%|██        | 10/49 [00:02<00:09,  4.11it/s]Capturing CUDA graphs (PIECEWISE):  22%|██▏       | 11/49 [00:02<00:09,  4.10it/s]Capturing CUDA graphs (PIECEWISE):  24%|██▍       | 12/49 [00:02<00:08,  4.28it/s]Capturing CUDA graphs (PIECEWISE):  27%|██▋       | 13/49 [00:03<00:08,  4.50it/s]Capturing CUDA graphs (PIECEWISE):  29%|██▊       | 14/49 [00:03<00:07,  4.84it/s]Capturing CUDA graphs (PIECEWISE):  31%|███       | 15/49 [00:03<00:06,  5.24it/s]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 16/49 [00:03<00:05,  5.76it/s]Capturing CUDA graphs (PIECEWISE):  39%|███▉      | 19/49 [00:03<00:03,  9.67it/s]Capturing CUDA graphs (PIECEWISE):  45%|████▍     | 22/49 [00:03<00:02, 12.67it/s]Capturing CUDA graphs (PIECEWISE):  51%|█████     | 25/49 [00:03<00:01, 14.92it/s]Capturing CUDA graphs (PIECEWISE):  57%|█████▋    | 28/49 [00:04<00:01, 16.49it/s]Capturing CUDA graphs (PIECEWISE):  63%|██████▎   | 31/49 [00:04<00:01, 17.65it/s]Capturing CUDA graphs (PIECEWISE):  69%|██████▉   | 34/49 [00:04<00:00, 18.43it/s]Capturing CUDA graphs (PIECEWISE):  73%|███████▎  | 36/49 [00:04<00:00, 18.77it/s]Capturing CUDA graphs (PIECEWISE):  80%|███████▉  | 39/49 [00:04<00:00, 19.21it/s]Capturing CUDA graphs (PIECEWISE):  84%|████████▎ | 41/49 [00:04<00:00, 19.39it/s]Capturing CUDA graphs (PIECEWISE):  90%|████████▉ | 44/49 [00:04<00:00, 19.63it/s]Capturing CUDA graphs (PIECEWISE):  96%|█████████▌| 47/49 [00:05<00:00, 19.70it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 49/49 [00:05<00:00,  9.48it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/30 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):  10%|█         | 3/30 [00:00<00:01, 25.49it/s]Capturing CUDA graphs (FULL):  20%|██        | 6/30 [00:00<00:00, 25.24it/s]Capturing CUDA graphs (FULL):  30%|███       | 9/30 [00:00<00:00, 25.34it/s]Capturing CUDA graphs (FULL):  40%|████      | 12/30 [00:00<00:00, 25.37it/s]Capturing CUDA graphs (FULL):  50%|█████     | 15/30 [00:00<00:00, 25.06it/s]Capturing CUDA graphs (FULL):  60%|██████    | 18/30 [00:00<00:00, 25.07it/s]Capturing CUDA graphs (FULL):  70%|███████   | 21/30 [00:00<00:00, 24.94it/s]Capturing CUDA graphs (FULL):  80%|████████  | 24/30 [00:00<00:00, 24.93it/s]Capturing CUDA graphs (FULL):  90%|█████████ | 27/30 [00:01<00:00, 24.96it/s]Capturing CUDA graphs (FULL): 100%|██████████| 30/30 [00:01<00:00, 25.13it/s]Capturing CUDA graphs (FULL): 100%|██████████| 30/30 [00:01<00:00, 25.11it/s]
+(EngineCore pid=105) INFO 10-24 13:25:57 [speculator.py:110] Capturing model for speculator...
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/49 [00:00<?, ?it/s]Capturing prefill CUDA graphs (PIECEWISE):  27%|██▋       | 13/49 [00:00<00:00, 128.88it/s]Capturing prefill CUDA graphs (PIECEWISE):  59%|█████▉    | 29/49 [00:00<00:00, 146.09it/s]Capturing prefill CUDA graphs (PIECEWISE):  96%|█████████▌| 47/49 [00:00<00:00, 159.22it/s]Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 49/49 [00:00<00:00, 155.32it/s]
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/30 [00:00<?, ?it/s]Capturing prefill CUDA graphs (FULL):  57%|█████▋    | 17/30 [00:00<00:00, 168.02it/s]Capturing prefill CUDA graphs (FULL): 100%|██████████| 30/30 [00:00<00:00, 176.00it/s]
+Capturing decode CUDA graphs (FULL):   0%|          | 0/15 [00:00<?, ?it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 15/15 [00:00<00:00, 202.34it/s]
+(EngineCore pid=105) INFO 10-24 13:25:58 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.44 GiB
+(EngineCore pid=105) INFO 10-24 13:25:58 [gpu_worker.py:971] CUDA graph pool memory: 0.44 GiB (actual), 0.77 GiB (estimated), difference: 0.33 GiB (75.8%).
+(EngineCore pid=105) INFO 10-24 13:25:58 [gpu_worker.py:1034] Free memory on device (39.08/39.49 GiB) on startup. Desired GPU memory utilization is (0.92, 36.33 GiB). Actual usage is 14.06 GiB for consumed memory (weights + non-torch), 2.56 GiB for peak activation, and 0.44 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=20541771756` (19.13 GiB) to fit into requested memory, or `--kv-cache-memory=23488642560` (21.88 GiB) to fully utilize gpu memory. Current kv cache memory in use is 19.71 GiB.
+(EngineCore pid=105) INFO 10-24 13:25:58 [jit_monitor.py:84] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+(EngineCore pid=105) INFO 10-24 13:25:59 [core.py:395] init engine (profile, create kv cache, warmup model) took 172.46 s (compilation: 31.74 s)
+(EngineCore pid=105) INFO 10-24 13:25:59 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(EngineCore pid=105) WARNING 10-24 13:25:59 [vllm.py:2276] max_num_scheduled_tokens is set to 2048 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+(APIServer pid=1) INFO 10-24 13:25:59 [entry.py:136] Supported tasks: ['generate']
+(APIServer pid=1) INFO 10-24 13:25:59 [factories.py:89] Scale-out endpoints are disabled. Restart vllm serve with --enable-scale-out to enable them.
+(APIServer pid=1) INFO 10-24 13:25:59 [parser_manager.py:38] "auto" tool choice has been enabled.
+(APIServer pid=1) INFO 10-24 13:26:01 [hf.py:648] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(APIServer pid=1) WARNING 10-24 13:26:01 [serving.py:262] The chat template requires system-first ordering, so inline system messages in /v1/messages requests (e.g. Claude Code's per-turn reminders) are merged into the leading system prompt. Each new one changes the prompt prefix, so the rest of the conversation misses the prefix cache. Pass a --chat-template that accepts non-leading system messages to avoid this.
+(APIServer pid=1) INFO 10-24 13:26:01 [entry.py:140] Starting vLLM server on http://0.0.0.0:8000
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:186] Available routes are:
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /openapi.json, Methods: HEAD, GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /docs, Methods: HEAD, GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /redoc, Methods: HEAD, GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /load, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /version, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /kv_event_sources, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /health, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /metrics, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /tokenize, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /detokenize, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/models, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/systemone, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /ping, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /ping, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /invocations, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/chat/completions, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/chat/completions/batch, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/responses, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/responses/{response_id}, Methods: GET
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/completions, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/messages, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/messages/count_tokens, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /generative_scoring, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /scale_elastic_ep, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /is_scaling_elastic_ep, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/chat/completions/render, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/messages/render, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/completions/render, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/responses/render, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/chat/completions/derender, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /v1/completions/derender, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /inference/v1/generate, Methods: POST
+(APIServer pid=1) INFO 10-24 13:26:01 [launcher.py:195] Route: /inference/v1/abort_requests, Methods: POST
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     172.28.0.1:59922 - "GET /v1/models HTTP/1.1" 200 OK
+[greenmind] priority=0 (est. 0-256 prompt tokens)
+INFO:     172.28.0.1:59936 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[greenmind] priority=0 (est. 0-256 prompt tokens)
+INFO:     172.28.0.1:59940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[greenmind] priority=0 (est. 0-256 prompt tokens)
+INFO:     172.28.0.1:59942 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:59956 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:59972 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:59974 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:59976 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(EngineCore pid=105) WARNING 10-24 13:26:14 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _compute_local_logits_stats_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+INFO:     172.28.0.1:59986 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60000 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60008 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60014 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60024 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(EngineCore pid=105) WARNING 10-24 13:26:14 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _rejection_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+INFO:     172.28.0.1:60026 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60032 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60058 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60060 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60072 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(EngineCore pid=105) WARNING 10-24 13:26:14 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _resample_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+INFO:     172.28.0.1:60086 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60100 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60106 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60116 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60132 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:60138 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35294 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35300 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35314 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35316 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35320 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35332 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35344 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35352 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35356 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(EngineCore pid=105) WARNING 10-24 13:26:19 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _gather_draft_sampled_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+INFO:     172.28.0.1:35370 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35382 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35396 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35404 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35420 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35424 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35430 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35436 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35438 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35454 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35462 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35464 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35466 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35482 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     172.28.0.1:35484 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:26:21 [loggers.py:335] Engine 000: Avg prompt throughput: 6916.5 tokens/s, Avg generation throughput: 380.8 tokens/s, Running: 24 reqs, Waiting: 0 reqs, GPU KV cache usage: 27.9%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:26:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.55, Accepted throughput: 102.94 tokens/s, Drafted throughput: 133.01 tokens/s, Accepted: 2297 tokens, Drafted: 2968 tokens, Per-position acceptance rate: 0.857, 0.691, Avg Draft acceptance rate: 77.4%
+(APIServer pid=1) INFO 10-24 13:26:31 [loggers.py:335] Engine 000: Avg prompt throughput: 3691.7 tokens/s, Avg generation throughput: 211.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:26:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.39, Accepted throughput: 124.10 tokens/s, Drafted throughput: 178.20 tokens/s, Accepted: 1241 tokens, Drafted: 1782 tokens, Per-position acceptance rate: 0.791, 0.602, Avg Draft acceptance rate: 69.6%
+INFO:     103.153.118.95:54936 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:26:41 [loggers.py:335] Engine 000: Avg prompt throughput: 1.2 tokens/s, Avg generation throughput: 5.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:26:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.38, Accepted throughput: 2.90 tokens/s, Drafted throughput: 4.20 tokens/s, Accepted: 29 tokens, Drafted: 42 tokens, Per-position acceptance rate: 0.905, 0.476, Avg Draft acceptance rate: 69.0%
+(APIServer pid=1) INFO 10-24 13:26:51 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO:     103.153.118.95:38360 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38376 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:27:21 [loggers.py:335] Engine 000: Avg prompt throughput: 6.4 tokens/s, Avg generation throughput: 9.0 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.9%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:27:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.75, Accepted throughput: 1.40 tokens/s, Drafted throughput: 1.60 tokens/s, Accepted: 56 tokens, Drafted: 64 tokens, Per-position acceptance rate: 0.969, 0.781, Avg Draft acceptance rate: 87.5%
+INFO:     103.153.118.95:38382 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38396 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38402 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41968 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41978 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41982 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41994 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41996 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42012 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42018 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42028 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42036 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42048 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42058 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42064 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42070 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42076 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42088 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42102 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42104 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42116 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42120 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42136 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42144 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42156 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:27:31 [loggers.py:335] Engine 000: Avg prompt throughput: 2452.0 tokens/s, Avg generation throughput: 608.1 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.7%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:27:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.57, Accepted throughput: 371.27 tokens/s, Drafted throughput: 472.96 tokens/s, Accepted: 3713 tokens, Drafted: 4730 tokens, Per-position acceptance rate: 0.858, 0.712, Avg Draft acceptance rate: 78.5%
+INFO:     103.153.118.95:42172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42174 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42184 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42196 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35040 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35054 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35064 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35078 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35084 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35088 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35100 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35106 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35118 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35134 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35138 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35148 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35168 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35184 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35198 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35210 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35222 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35236 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35238 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35244 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35252 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35264 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:27:41 [loggers.py:335] Engine 000: Avg prompt throughput: 3115.4 tokens/s, Avg generation throughput: 650.7 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.7%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:27:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.64, Accepted throughput: 403.76 tokens/s, Drafted throughput: 493.55 tokens/s, Accepted: 4038 tokens, Drafted: 4936 tokens, Per-position acceptance rate: 0.889, 0.748, Avg Draft acceptance rate: 81.8%
+INFO:     103.153.118.95:35272 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35282 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:35294 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:33976 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:33978 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:33984 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:33986 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:33988 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:33990 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:33994 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34002 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34016 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34018 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34034 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34038 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34052 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34066 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34076 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34090 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34102 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34112 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34122 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34138 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34156 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34170 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34186 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:27:51 [loggers.py:335] Engine 000: Avg prompt throughput: 3919.6 tokens/s, Avg generation throughput: 673.9 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.7%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:27:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.61, Accepted throughput: 414.77 tokens/s, Drafted throughput: 516.56 tokens/s, Accepted: 4148 tokens, Drafted: 5166 tokens, Per-position acceptance rate: 0.882, 0.724, Avg Draft acceptance rate: 80.3%
+INFO:     103.153.118.95:34192 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34200 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34202 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:34218 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58748 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58754 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58762 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58766 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58772 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58780 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58796 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58808 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58818 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58820 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58830 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58832 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58836 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58838 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58848 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58850 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58862 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58870 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58886 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58894 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58906 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58926 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:28:01 [loggers.py:335] Engine 000: Avg prompt throughput: 2730.4 tokens/s, Avg generation throughput: 680.7 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.7%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:28:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.63, Accepted throughput: 421.65 tokens/s, Drafted throughput: 517.34 tokens/s, Accepted: 4217 tokens, Drafted: 5174 tokens, Per-position acceptance rate: 0.894, 0.736, Avg Draft acceptance rate: 81.5%
+INFO:     103.153.118.95:58942 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58958 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58974 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58982 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54032 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54046 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54062 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54068 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54084 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54098 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54112 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54126 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54136 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54148 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54162 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54170 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54186 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54190 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54196 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54206 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54216 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54234 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54242 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54254 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54270 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54284 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54292 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54294 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:28:11 [loggers.py:335] Engine 000: Avg prompt throughput: 2588.7 tokens/s, Avg generation throughput: 727.4 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.7%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:28:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.58, Accepted throughput: 445.34 tokens/s, Drafted throughput: 562.53 tokens/s, Accepted: 4454 tokens, Drafted: 5626 tokens, Per-position acceptance rate: 0.869, 0.714, Avg Draft acceptance rate: 79.2%
+INFO:     103.153.118.95:54298 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54304 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54306 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54322 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54334 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:54344 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48672 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48674 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48680 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48696 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48704 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48706 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48716 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48726 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48734 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48746 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48754 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48770 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48778 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48784 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48792 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48796 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48804 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48810 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48814 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48822 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48836 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48840 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:28:21 [loggers.py:335] Engine 000: Avg prompt throughput: 4367.3 tokens/s, Avg generation throughput: 584.0 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.1%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:28:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.60, Accepted throughput: 359.65 tokens/s, Drafted throughput: 448.54 tokens/s, Accepted: 3597 tokens, Drafted: 4486 tokens, Per-position acceptance rate: 0.874, 0.730, Avg Draft acceptance rate: 80.2%
+INFO:     103.153.118.95:39976 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:39988 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:39998 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40006 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40010 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40014 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40016 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40028 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40052 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40058 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40074 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40082 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40098 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40112 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40124 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40128 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40134 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40144 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40164 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40168 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40180 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40196 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40212 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40218 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40228 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40232 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40236 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40250 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40254 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40268 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40274 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40284 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40286 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40296 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40312 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40320 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40330 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:28:31 [loggers.py:335] Engine 000: Avg prompt throughput: 3565.8 tokens/s, Avg generation throughput: 483.1 tokens/s, Running: 28 reqs, Waiting: 0 reqs, GPU KV cache usage: 33.2%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 10-24 13:28:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.54, Accepted throughput: 291.80 tokens/s, Drafted throughput: 378.80 tokens/s, Accepted: 2918 tokens, Drafted: 3788 tokens, Per-position acceptance rate: 0.844, 0.696, Avg Draft acceptance rate: 77.0%
+INFO:     103.153.118.95:40342 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40354 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40358 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40364 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40368 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40382 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40394 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57414 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57424 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57430 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57444 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57458 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57472 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57474 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57486 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57490 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57504 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57518 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57534 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57538 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57546 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57560 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57572 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57582 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57590 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57596 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57610 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57616 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57618 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57632 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57642 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57658 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57666 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57678 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57680 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57694 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57710 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57724 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57736 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57744 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57748 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57758 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57766 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57770 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57784 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57798 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57806 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57822 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57828 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57844 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57858 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57870 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57886 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57888 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57892 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57902 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57924 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57934 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57948 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57952 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57956 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57964 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57972 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57980 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:57990 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58002 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58010 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58022 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58026 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58032 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58044 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58060 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58072 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:28:41 [loggers.py:335] Engine 000: Avg prompt throughput: 8922.6 tokens/s, Avg generation throughput: 1737.2 tokens/s, Running: 30 reqs, Waiting: 0 reqs, GPU KV cache usage: 33.2%, Prefix cache hit rate: 0.6%
+(APIServer pid=1) INFO 10-24 13:28:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.61, Accepted throughput: 1071.96 tokens/s, Drafted throughput: 1333.56 tokens/s, Accepted: 10720 tokens, Drafted: 13336 tokens, Per-position acceptance rate: 0.870, 0.738, Avg Draft acceptance rate: 80.4%
+INFO:     103.153.118.95:58084 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58094 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58108 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58112 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58116 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52540 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52548 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52558 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52570 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52580 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52582 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52592 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52600 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52616 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52626 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52634 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52642 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52658 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52666 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52674 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52686 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52702 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52704 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52720 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52722 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52732 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52734 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52736 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52740 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52742 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:28:51 [loggers.py:335] Engine 000: Avg prompt throughput: 3664.3 tokens/s, Avg generation throughput: 1296.2 tokens/s, Running: 14 reqs, Waiting: 0 reqs, GPU KV cache usage: 18.0%, Prefix cache hit rate: 1.2%
+(APIServer pid=1) INFO 10-24 13:28:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.66, Accepted throughput: 811.07 tokens/s, Drafted throughput: 975.45 tokens/s, Accepted: 8112 tokens, Drafted: 9756 tokens, Per-position acceptance rate: 0.894, 0.769, Avg Draft acceptance rate: 83.1%
+INFO:     103.153.118.95:52758 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52772 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52778 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52780 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52790 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52796 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52810 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36872 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36888 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36892 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36906 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36918 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36928 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36930 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36936 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36950 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36958 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:29:01 [loggers.py:335] Engine 000: Avg prompt throughput: 1321.8 tokens/s, Avg generation throughput: 964.7 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.2%, Prefix cache hit rate: 1.6%
+(APIServer pid=1) INFO 10-24 13:29:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.74, Accepted throughput: 614.13 tokens/s, Drafted throughput: 704.92 tokens/s, Accepted: 6142 tokens, Drafted: 7050 tokens, Per-position acceptance rate: 0.914, 0.828, Avg Draft acceptance rate: 87.1%
+(APIServer pid=1) INFO 10-24 13:29:11 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 562.7 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.0%, Prefix cache hit rate: 1.6%
+(APIServer pid=1) INFO 10-24 13:29:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.88, Accepted throughput: 367.10 tokens/s, Drafted throughput: 391.20 tokens/s, Accepted: 3671 tokens, Drafted: 3912 tokens, Per-position acceptance rate: 0.963, 0.914, Avg Draft acceptance rate: 93.8%
+(APIServer pid=1) INFO 10-24 13:29:21 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 548.8 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 6.2%, Prefix cache hit rate: 1.6%
+(APIServer pid=1) INFO 10-24 13:29:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.95, Accepted throughput: 362.56 tokens/s, Drafted throughput: 372.56 tokens/s, Accepted: 3626 tokens, Drafted: 3726 tokens, Per-position acceptance rate: 0.983, 0.963, Avg Draft acceptance rate: 97.3%
+(APIServer pid=1) INFO 10-24 13:29:31 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 501.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.3%, Prefix cache hit rate: 1.6%
+(APIServer pid=1) INFO 10-24 13:29:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.96, Accepted throughput: 332.29 tokens/s, Drafted throughput: 338.99 tokens/s, Accepted: 3323 tokens, Drafted: 3390 tokens, Per-position acceptance rate: 0.989, 0.972, Avg Draft acceptance rate: 98.0%
+(APIServer pid=1) INFO 10-24 13:29:41 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 55.9 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 1.6%
+(APIServer pid=1) INFO 10-24 13:29:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.87, Accepted throughput: 36.50 tokens/s, Drafted throughput: 39.00 tokens/s, Accepted: 365 tokens, Drafted: 390 tokens, Per-position acceptance rate: 0.964, 0.908, Avg Draft acceptance rate: 93.6%
+(APIServer pid=1) INFO 10-24 13:29:51 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 1.6%
+INFO:     103.153.118.95:38496 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:31:01 [loggers.py:335] Engine 000: Avg prompt throughput: 1.2 tokens/s, Avg generation throughput: 5.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 1.6%
+(APIServer pid=1) INFO 10-24 13:31:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.38, Accepted throughput: 0.36 tokens/s, Drafted throughput: 0.52 tokens/s, Accepted: 29 tokens, Drafted: 42 tokens, Per-position acceptance rate: 0.905, 0.476, Avg Draft acceptance rate: 69.0%
+(APIServer pid=1) INFO 10-24 13:31:11 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 1.6%
+INFO:     103.153.118.95:52734 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52744 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52752 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52754 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52762 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52766 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52778 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52790 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52802 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52810 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52812 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52814 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52822 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52832 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52844 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52852 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52862 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52872 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52886 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:31:51 [loggers.py:335] Engine 000: Avg prompt throughput: 1168.1 tokens/s, Avg generation throughput: 429.5 tokens/s, Running: 7 reqs, Waiting: 0 reqs, GPU KV cache usage: 7.4%, Prefix cache hit rate: 1.5%
+(APIServer pid=1) INFO 10-24 13:31:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.57, Accepted throughput: 52.44 tokens/s, Drafted throughput: 66.76 tokens/s, Accepted: 2622 tokens, Drafted: 3338 tokens, Per-position acceptance rate: 0.863, 0.708, Avg Draft acceptance rate: 78.6%
+INFO:     103.153.118.95:52902 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52910 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52924 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:52926 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53488 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53490 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53500 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53510 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53524 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53530 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53534 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53544 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53560 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53574 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53590 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53600 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53610 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53622 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53612 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53630 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53632 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53634 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53636 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53642 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53656 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53672 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53674 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53682 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:32:01 [loggers.py:335] Engine 000: Avg prompt throughput: 1035.3 tokens/s, Avg generation throughput: 631.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.8%, Prefix cache hit rate: 7.2%
+(APIServer pid=1) INFO 10-24 13:32:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.58, Accepted throughput: 387.15 tokens/s, Drafted throughput: 489.14 tokens/s, Accepted: 3872 tokens, Drafted: 4892 tokens, Per-position acceptance rate: 0.870, 0.713, Avg Draft acceptance rate: 79.1%
+INFO:     103.153.118.95:53684 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53696 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53704 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53716 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38218 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38234 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38240 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38244 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38246 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38256 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38260 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38272 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38276 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38282 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38298 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38308 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38318 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38322 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38330 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38334 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38348 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38356 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38366 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38372 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38374 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38384 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38398 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:32:11 [loggers.py:335] Engine 000: Avg prompt throughput: 762.2 tokens/s, Avg generation throughput: 661.8 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.1%, Prefix cache hit rate: 12.1%
+(APIServer pid=1) INFO 10-24 13:32:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.63, Accepted throughput: 409.96 tokens/s, Drafted throughput: 501.95 tokens/s, Accepted: 4100 tokens, Drafted: 5020 tokens, Per-position acceptance rate: 0.890, 0.743, Avg Draft acceptance rate: 81.7%
+INFO:     103.153.118.95:38410 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38418 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38424 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36278 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36284 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36286 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36294 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36310 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36312 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36318 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36326 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36328 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36344 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36350 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36356 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36368 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36374 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36376 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36392 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36394 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36406 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36422 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36434 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36436 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36444 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36448 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36464 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36480 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:32:21 [loggers.py:335] Engine 000: Avg prompt throughput: 906.5 tokens/s, Avg generation throughput: 724.1 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.4%, Prefix cache hit rate: 14.4%
+(APIServer pid=1) INFO 10-24 13:32:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.62, Accepted throughput: 447.97 tokens/s, Drafted throughput: 551.76 tokens/s, Accepted: 4480 tokens, Drafted: 5518 tokens, Per-position acceptance rate: 0.888, 0.735, Avg Draft acceptance rate: 81.2%
+INFO:     103.153.118.95:36482 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36484 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36490 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:36494 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45188 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45196 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45208 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45210 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45212 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45230 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45232 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45240 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45244 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45246 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45250 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45258 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45260 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45268 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45270 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45284 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45298 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45310 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45324 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45326 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45332 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45344 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:32:31 [loggers.py:335] Engine 000: Avg prompt throughput: 630.7 tokens/s, Avg generation throughput: 708.6 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.9%, Prefix cache hit rate: 17.2%
+(APIServer pid=1) INFO 10-24 13:32:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.59, Accepted throughput: 435.27 tokens/s, Drafted throughput: 546.97 tokens/s, Accepted: 4353 tokens, Drafted: 5470 tokens, Per-position acceptance rate: 0.876, 0.716, Avg Draft acceptance rate: 79.6%
+INFO:     103.153.118.95:45350 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45362 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45368 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45370 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45384 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45386 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:45392 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59010 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59024 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59034 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59048 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59054 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59070 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59082 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59086 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59088 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59102 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59116 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59130 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59142 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59148 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59160 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59170 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59182 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59188 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59200 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59208 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59222 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59238 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59252 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:32:41 [loggers.py:335] Engine 000: Avg prompt throughput: 1242.2 tokens/s, Avg generation throughput: 509.8 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.5%, Prefix cache hit rate: 20.7%
+(APIServer pid=1) INFO 10-24 13:32:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.56, Accepted throughput: 310.20 tokens/s, Drafted throughput: 398.60 tokens/s, Accepted: 3102 tokens, Drafted: 3986 tokens, Per-position acceptance rate: 0.861, 0.695, Avg Draft acceptance rate: 77.8%
+INFO:     103.153.118.95:59264 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59276 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59282 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59290 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59302 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47734 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47748 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47762 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:32:51 [loggers.py:335] Engine 000: Avg prompt throughput: 174.9 tokens/s, Avg generation throughput: 313.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 20.9%
+(APIServer pid=1) INFO 10-24 13:32:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.59, Accepted throughput: 192.90 tokens/s, Drafted throughput: 242.00 tokens/s, Accepted: 1929 tokens, Drafted: 2420 tokens, Per-position acceptance rate: 0.865, 0.729, Avg Draft acceptance rate: 79.7%
+INFO:     103.153.118.95:47774 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47778 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59878 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59886 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59900 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59908 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59918 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59930 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59946 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59932 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59950 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59966 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59976 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59984 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59990 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59998 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60014 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60028 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60040 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60056 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60072 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60086 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60098 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:33:01 [loggers.py:335] Engine 000: Avg prompt throughput: 3156.0 tokens/s, Avg generation throughput: 482.0 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 12.8%, Prefix cache hit rate: 21.6%
+(APIServer pid=1) INFO 10-24 13:33:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.72, Accepted throughput: 304.07 tokens/s, Drafted throughput: 354.36 tokens/s, Accepted: 3041 tokens, Drafted: 3544 tokens, Per-position acceptance rate: 0.911, 0.805, Avg Draft acceptance rate: 85.8%
+INFO:     103.153.118.95:60112 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60122 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60126 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60132 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60146 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60160 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:60176 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44008 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44016 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44026 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44050 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44066 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44080 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44086 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44090 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44102 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44108 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44120 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44128 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44136 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44142 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44150 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44158 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44168 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44170 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44176 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44180 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44184 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44196 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44204 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44220 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44236 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44240 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44252 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44250 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44264 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44276 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44284 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44294 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44304 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44320 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44336 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44350 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44362 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44366 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44382 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44398 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44406 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44422 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44426 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44442 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44446 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44458 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44464 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44476 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44482 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44496 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44504 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44516 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44528 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44544 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44556 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44566 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44568 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44584 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44586 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:33:11 [loggers.py:335] Engine 000: Avg prompt throughput: 6098.3 tokens/s, Avg generation throughput: 915.2 tokens/s, Running: 24 reqs, Waiting: 0 reqs, GPU KV cache usage: 29.9%, Prefix cache hit rate: 19.8%
+(APIServer pid=1) INFO 10-24 13:33:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.72, Accepted throughput: 577.82 tokens/s, Drafted throughput: 672.19 tokens/s, Accepted: 5780 tokens, Drafted: 6724 tokens, Per-position acceptance rate: 0.914, 0.805, Avg Draft acceptance rate: 86.0%
+INFO:     103.153.118.95:44600 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44604 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44608 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44624 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44626 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44640 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44646 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:44650 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58968 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58970 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58976 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58982 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58998 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59000 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59002 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59016 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59026 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59036 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59044 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59058 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59074 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59084 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59094 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59106 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59118 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59120 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59122 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59134 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59140 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59144 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59152 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59168 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59186 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59196 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59212 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59224 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59240 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59242 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59256 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59270 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59280 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59284 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59286 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59292 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59296 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59308 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59320 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59324 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59332 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59346 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59354 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59370 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59378 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59390 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59406 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59418 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59428 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59430 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59440 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59442 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59444 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59456 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59464 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59474 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59484 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59492 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59504 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59512 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59514 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59530 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59532 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59546 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59554 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:33:21 [loggers.py:335] Engine 000: Avg prompt throughput: 9721.8 tokens/s, Avg generation throughput: 1387.0 tokens/s, Running: 48 reqs, Waiting: 0 reqs, GPU KV cache usage: 63.2%, Prefix cache hit rate: 17.9%
+(APIServer pid=1) INFO 10-24 13:33:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.65, Accepted throughput: 862.96 tokens/s, Drafted throughput: 1044.35 tokens/s, Accepted: 8630 tokens, Drafted: 10444 tokens, Per-position acceptance rate: 0.883, 0.770, Avg Draft acceptance rate: 82.6%
+INFO:     103.153.118.95:59560 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59572 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59588 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59590 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59600 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59610 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59624 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:59628 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53028 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53038 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53046 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53052 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53062 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53072 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53080 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53090 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53106 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53122 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53130 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53144 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53158 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53186 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53198 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53214 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53224 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53240 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53250 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53264 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53266 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53278 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53292 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53294 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53306 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53318 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53334 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53344 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53356 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53364 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53380 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53390 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53392 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53396 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53402 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53414 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53418 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53430 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53434 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53438 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53446 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53452 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53466 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53480 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53490 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53502 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53504 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53508 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53524 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53534 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:33:31 [loggers.py:335] Engine 000: Avg prompt throughput: 10911.4 tokens/s, Avg generation throughput: 1634.2 tokens/s, Running: 55 reqs, Waiting: 0 reqs, GPU KV cache usage: 74.2%, Prefix cache hit rate: 16.8%
+(APIServer pid=1) INFO 10-24 13:33:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.64, Accepted throughput: 1015.40 tokens/s, Drafted throughput: 1237.80 tokens/s, Accepted: 10154 tokens, Drafted: 12378 tokens, Per-position acceptance rate: 0.880, 0.761, Avg Draft acceptance rate: 82.0%
+INFO:     103.153.118.95:53540 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53550 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53556 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53568 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53572 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53586 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53592 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53602 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:53608 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47890 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47894 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47900 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47910 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47924 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47936 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47954 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47956 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47968 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47976 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47982 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:47988 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48002 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48010 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48022 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48024 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48028 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48058 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48060 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48072 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48082 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48092 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48102 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48104 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48110 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48126 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48132 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48134 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48142 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48146 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48148 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48156 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48188 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48204 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48218 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48230 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48240 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48248 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48264 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48272 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48278 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48284 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48296 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48308 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48314 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48322 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48338 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48340 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48356 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48362 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48374 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48384 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48392 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48402 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48418 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:33:41 [loggers.py:335] Engine 000: Avg prompt throughput: 6068.6 tokens/s, Avg generation throughput: 2291.4 tokens/s, Running: 54 reqs, Waiting: 0 reqs, GPU KV cache usage: 69.4%, Prefix cache hit rate: 15.9%
+(APIServer pid=1) INFO 10-24 13:33:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.66, Accepted throughput: 1430.29 tokens/s, Drafted throughput: 1723.02 tokens/s, Accepted: 14311 tokens, Drafted: 17240 tokens, Per-position acceptance rate: 0.889, 0.771, Avg Draft acceptance rate: 83.0%
+INFO:     103.153.118.95:48424 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48432 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48440 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48448 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48458 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48460 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48472 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48486 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:48498 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40776 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40782 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40798 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40804 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40814 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40818 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40822 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40830 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40836 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40846 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40850 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40858 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40862 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40868 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40882 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40884 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40900 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40902 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40924 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40928 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40942 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40958 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40974 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40990 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:40998 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41014 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41026 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41054 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41066 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41078 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41086 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41100 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41108 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41114 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41122 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41130 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41138 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41146 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41168 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41180 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41182 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41184 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41200 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41202 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41206 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41216 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41230 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41234 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:33:51 [loggers.py:335] Engine 000: Avg prompt throughput: 7003.8 tokens/s, Avg generation throughput: 1964.7 tokens/s, Running: 51 reqs, Waiting: 0 reqs, GPU KV cache usage: 67.8%, Prefix cache hit rate: 15.0%
+(APIServer pid=1) INFO 10-24 13:33:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.72, Accepted throughput: 1244.59 tokens/s, Drafted throughput: 1446.97 tokens/s, Accepted: 12453 tokens, Drafted: 14478 tokens, Per-position acceptance rate: 0.914, 0.806, Avg Draft acceptance rate: 86.0%
+INFO:     103.153.118.95:41244 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41256 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41264 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41278 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41292 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41308 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42442 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42450 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42464 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42468 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42480 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42484 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42494 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42504 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42508 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42520 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42522 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42530 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42532 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42538 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42550 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42564 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42576 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42592 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42600 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42610 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42620 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42632 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42638 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42652 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42666 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42676 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42678 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42680 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42688 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42696 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42708 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42712 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42724 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42734 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42738 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:34:01 [loggers.py:335] Engine 000: Avg prompt throughput: 5053.1 tokens/s, Avg generation throughput: 2066.1 tokens/s, Running: 38 reqs, Waiting: 0 reqs, GPU KV cache usage: 54.8%, Prefix cache hit rate: 14.3%
+(APIServer pid=1) INFO 10-24 13:34:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.68, Accepted throughput: 1297.21 tokens/s, Drafted throughput: 1540.50 tokens/s, Accepted: 12978 tokens, Drafted: 15412 tokens, Per-position acceptance rate: 0.898, 0.786, Avg Draft acceptance rate: 84.2%
+INFO:     103.153.118.95:42748 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42752 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42768 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42770 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42404 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42410 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42418 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42424 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42438 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42440 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42444 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42454 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42466 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42470 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42482 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42492 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42494 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42502 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:42512 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:34:11 [loggers.py:335] Engine 000: Avg prompt throughput: 1234.9 tokens/s, Avg generation throughput: 2075.1 tokens/s, Running: 24 reqs, Waiting: 0 reqs, GPU KV cache usage: 36.9%, Prefix cache hit rate: 14.2%
+(APIServer pid=1) INFO 10-24 13:34:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.71, Accepted throughput: 1310.78 tokens/s, Drafted throughput: 1531.43 tokens/s, Accepted: 13111 tokens, Drafted: 15318 tokens, Per-position acceptance rate: 0.913, 0.799, Avg Draft acceptance rate: 85.6%
+INFO:     103.153.118.95:42528 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38740 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38744 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38752 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38758 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38766 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38772 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38778 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38782 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38788 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38804 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38818 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38820 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38828 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:34:21 [loggers.py:335] Engine 000: Avg prompt throughput: 658.6 tokens/s, Avg generation throughput: 1820.2 tokens/s, Running: 17 reqs, Waiting: 0 reqs, GPU KV cache usage: 30.3%, Prefix cache hit rate: 14.1%
+(APIServer pid=1) INFO 10-24 13:34:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.74, Accepted throughput: 1157.12 tokens/s, Drafted throughput: 1328.50 tokens/s, Accepted: 11572 tokens, Drafted: 13286 tokens, Per-position acceptance rate: 0.919, 0.823, Avg Draft acceptance rate: 87.1%
+INFO:     103.153.118.95:38844 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38858 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38870 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38884 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:38894 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46050 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46066 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46076 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46082 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46088 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46102 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46118 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46130 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46134 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46144 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46148 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46158 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46162 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46182 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46198 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46200 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46202 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46216 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46220 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:34:31 [loggers.py:335] Engine 000: Avg prompt throughput: 2150.8 tokens/s, Avg generation throughput: 1500.9 tokens/s, Running: 17 reqs, Waiting: 0 reqs, GPU KV cache usage: 32.4%, Prefix cache hit rate: 14.1%
+(APIServer pid=1) INFO 10-24 13:34:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.80, Accepted throughput: 965.57 tokens/s, Drafted throughput: 1071.74 tokens/s, Accepted: 9658 tokens, Drafted: 10720 tokens, Per-position acceptance rate: 0.938, 0.863, Avg Draft acceptance rate: 90.1%
+INFO:     103.153.118.95:46226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46234 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46244 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46252 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:46254 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58568 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58578 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58584 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58600 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58604 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58608 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58614 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58620 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58624 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58626 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58632 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58648 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58660 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58668 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58678 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:34:41 [loggers.py:335] Engine 000: Avg prompt throughput: 994.0 tokens/s, Avg generation throughput: 1423.7 tokens/s, Running: 18 reqs, Waiting: 0 reqs, GPU KV cache usage: 35.1%, Prefix cache hit rate: 14.5%
+(APIServer pid=1) INFO 10-24 13:34:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.87, Accepted throughput: 928.22 tokens/s, Drafted throughput: 991.61 tokens/s, Accepted: 9284 tokens, Drafted: 9918 tokens, Per-position acceptance rate: 0.960, 0.912, Avg Draft acceptance rate: 93.6%
+INFO:     103.153.118.95:58690 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58702 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:58706 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41650 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41664 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41674 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41684 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41692 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41694 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41704 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41708 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41718 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41722 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41736 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41744 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41752 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41764 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:34:51 [loggers.py:335] Engine 000: Avg prompt throughput: 1255.9 tokens/s, Avg generation throughput: 1421.2 tokens/s, Running: 19 reqs, Waiting: 0 reqs, GPU KV cache usage: 37.5%, Prefix cache hit rate: 14.5%
+(APIServer pid=1) INFO 10-24 13:34:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.81, Accepted throughput: 916.35 tokens/s, Drafted throughput: 1011.23 tokens/s, Accepted: 9165 tokens, Drafted: 10114 tokens, Per-position acceptance rate: 0.937, 0.876, Avg Draft acceptance rate: 90.6%
+INFO:     103.153.118.95:41774 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41786 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41792 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41796 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41808 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41822 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:41824 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:32916 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:32930 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:32944 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     103.153.118.95:32946 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-24 13:35:01 [loggers.py:335] Engine 000: Avg prompt throughput: 435.8 tokens/s, Avg generation throughput: 1564.8 tokens/s, Running: 14 reqs, Waiting: 0 reqs, GPU KV cache usage: 33.3%, Prefix cache hit rate: 15.2%
+(APIServer pid=1) INFO 10-24 13:35:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.81, Accepted throughput: 1008.87 tokens/s, Drafted throughput: 1113.16 tokens/s, Accepted: 10089 tokens, Drafted: 11132 tokens, Per-position acceptance rate: 0.940, 0.872, Avg Draft acceptance rate: 90.6%
+(APIServer pid=1) INFO 10-24 13:35:11 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 1237.0 tokens/s, Running: 13 reqs, Waiting: 0 reqs, GPU KV cache usage: 33.5%, Prefix cache hit rate: 15.2%
+(APIServer pid=1) INFO 10-24 13:35:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.90, Accepted throughput: 810.54 tokens/s, Drafted throughput: 853.04 tokens/s, Accepted: 8107 tokens, Drafted: 8532 tokens, Per-position acceptance rate: 0.970, 0.931, Avg Draft acceptance rate: 95.0%
+(APIServer pid=1) INFO 10-24 13:35:21 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 1056.1 tokens/s, Running: 7 reqs, Waiting: 0 reqs, GPU KV cache usage: 13.4%, Prefix cache hit rate: 15.2%
+(APIServer pid=1) INFO 10-24 13:35:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.89, Accepted throughput: 691.08 tokens/s, Drafted throughput: 731.18 tokens/s, Accepted: 6911 tokens, Drafted: 7312 tokens, Per-position acceptance rate: 0.966, 0.925, Avg Draft acceptance rate: 94.5%
+(APIServer pid=1) INFO 10-24 13:35:31 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 611.4 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.5%, Prefix cache hit rate: 15.2%
+(APIServer pid=1) INFO 10-24 13:35:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.93, Accepted throughput: 403.15 tokens/s, Drafted throughput: 417.34 tokens/s, Accepted: 4032 tokens, Drafted: 4174 tokens, Per-position acceptance rate: 0.985, 0.947, Avg Draft acceptance rate: 96.6%
+(APIServer pid=1) INFO 10-24 13:35:41 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 372.6 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.2%, Prefix cache hit rate: 15.2%
+(APIServer pid=1) INFO 10-24 13:35:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.00, Accepted throughput: 248.39 tokens/s, Drafted throughput: 248.39 tokens/s, Accepted: 2484 tokens, Drafted: 2484 tokens, Per-position acceptance rate: 1.000, 1.000, Avg Draft acceptance rate: 100.0%
+(APIServer pid=1) INFO 10-24 13:35:51 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 296.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 15.2%
+(APIServer pid=1) INFO 10-24 13:35:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.00, Accepted throughput: 197.60 tokens/s, Drafted throughput: 197.60 tokens/s, Accepted: 1976 tokens, Drafted: 1976 tokens, Per-position acceptance rate: 1.000, 1.000, Avg Draft acceptance rate: 100.0%
+(APIServer pid=1) INFO 10-24 13:36:01 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 15.2%
+INFO:     212.73.148.18:34890 - "GET / HTTP/1.1" 404 Not Found
