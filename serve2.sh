@@ -7,15 +7,21 @@
 #   PC       prefix caching: 1 = on, 0 = off                default 1
 #   PRIO     1 = shortest-prompt-first priority scheduling  default 0
 #            (needs serve_priority.py next to this script)
+#   MODEL    model id or local path (/models/... = ~/models on the VM)
+#                                                           default: CMKL/MANGO1.5-Qwen3.5-9B-AWQ-W4A16-mtp
+#   GMU      --gpu-memory-utilization (share of GPU memory) default 0.92
+#   MCM      --mamba-cache-mode (align | none)              default: vLLM's
+#   NOMM     1 = disable image/video inputs                 default 0
 #   KEY      API key                                        default: none
-# Example:  MTP=2 MBT=8192 LPT=2048 PRIO=1 KEY=$KEY ./serve2.sh
+# Example (INT8 best config):
+#   MODEL=/models/mango-w8a8 MTP=2 MBT=2048 LPT=1024 MAXSEQS=64 PRIO=1 KEY=$KEY ./serve2.sh
 MTP=${MTP:-1}
 PC=${PC:-1}
 PRIO=${PRIO:-0}
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ARGS=(--model ${MODEL:-CMKL/MANGO1.5-Qwen3.5-9B-AWQ-W4A16-mtp}
       --host 0.0.0.0 --port 8000
-      --max-model-len 49152 --gpu-memory-utilization 0.92
+      --max-model-len 49152 --gpu-memory-utilization ${GMU:-0.92}
       --reasoning-parser qwen3
       --enable-auto-tool-choice --tool-call-parser qwen3_coder)
 # vLLM turns prefix caching on by default, so "off" must be explicit
@@ -50,5 +56,5 @@ docker run -d --name vllm --gpus all --ipc=host -p 8000:8000 \
   "${ENTRY[@]}" \
   vllm/vllm-openai:latest "${ARGS[@]}"
 
-echo "$(date '+%F %T')  MTP=$MTP MBT=${MBT:-default} LPT=${LPT:-off} PC=$PC PRIO=$PRIO MAXSEQS=${MAXSEQS:-default}  PL=$(nvidia-smi --query-gpu=power.limit --format=csv,noheader)  SMCLK=$(nvidia-smi --query-gpu=clocks.max.sm --format=csv,noheader)" >> runs.log
+echo "$(date '+%F %T')  MODEL=${MODEL:-CMKL/MANGO1.5-Qwen3.5-9B-AWQ-W4A16-mtp} MTP=$MTP MBT=${MBT:-default} LPT=${LPT:-off} PC=$PC PRIO=$PRIO MAXSEQS=${MAXSEQS:-default} GMU=${GMU:-0.92} MCM=${MCM:-default} NOMM=${NOMM:-0}  PL=$(nvidia-smi --query-gpu=power.limit --format=csv,noheader)  SMCLK=$(nvidia-smi --query-gpu=clocks.max.sm --format=csv,noheader)" >> runs.log
 echo "Started. Watch with: docker logs -f vllm   (wait for 'Application startup complete')"
