@@ -1,0 +1,29 @@
+{
+  "image": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
+  "args": [
+    "--model",
+    "CMKL/MANGO1.5-Qwen3.5-9B-AWQ-W4A16-mtp",
+    "--host",
+    "0.0.0.0",
+    "--port",
+    "8000",
+    "--max-model-len",
+    "49152",
+    "--gpu-memory-utilization",
+    "0.92",
+    "--enable-prefix-caching",
+    "--reasoning-parser",
+    "qwen3",
+    "--enable-auto-tool-choice",
+    "--tool-call-parser",
+    "qwen3_coder",
+    "--speculative-config",
+    "{\"method\":\"mtp\",\"num_speculative_tokens\":2}",
+    "--max-num-batched-tokens",
+    "8192",
+    "--long-prefill-token-threshold",
+    "2048",
+    "--api-key",
+    "[REDACTED]"
+  ]
+}
