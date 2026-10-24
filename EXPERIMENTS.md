@@ -137,6 +137,6 @@ A was 1.00 in every validation run.
 - Sampling, `max_tokens`, thinking mode and streaming are left exactly as the grader sends them.
 - `warmup.py` sends synthetic prompts only, after each restart and before a submission, never during a graded run.
 - GPU power limit and clocks were never changed (400 W default), so nothing differs between graded and ungraded time.
-- `mango-w8a8` was made during the event from the official `CMKL/MANGO1.5-Qwen3.5-9B` weights with llm-compressor (open source): INT8 per-channel weights, dynamic per-token INT8 activations, no calibration data. `lm_head`, the vision tower, the MTP head and the small Gated-DeltaNet gate projections stay in BF16. Hugging Face: **TODO add link**.
+- `mango-w8a8` was made during the event from the official `CMKL/MANGO1.5-Qwen3.5-9B` weights with llm-compressor (open source): INT8 per-channel weights, dynamic per-token INT8 activations, no calibration data. `lm_head`, the vision tower, the MTP head and the small Gated-DeltaNet gate projections stay in BF16. Hugging Face: https://huggingface.co/PakornF/MANGO1.5-Qwen3.5-9B-W8A8-INT8-mtp.
 - `mango-w8a8-gptq` (not used for the best score) used open calibration data only: `HuggingFaceH4/ultrachat_200k`, first 256 samples.
 - `runs.log` records the settings of every launch (Bangkok time). Older entries do not record the model: every launch from 24 Oct 18:17 onward used `mango-w8a8`, except the 22:04 launch (`mango-w8a8-gptq`, Validation #21); earlier launches used the AWQ model.

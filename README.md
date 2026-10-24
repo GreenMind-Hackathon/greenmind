@@ -4,3 +4,7 @@ Serving CMKL/MANGO1.5-Qwen3.5-9B on 1x A100 40GB with vLLM.
 - `EXPERIMENTS.md` — every run, its config and grader scores, including what didn't work
 - `val*.log` — vLLM server logs for each validation run
 - `runs.log` — exact settings and power limit of each launch
+
+## Model weights
+Our INT8 W8A8 quantization of CMKL/MANGO1.5-Qwen3.5-9B (used for all INT8 runs and our best score):
+https://huggingface.co/PakornF/MANGO1.5-Qwen3.5-9B-W8A8-INT8-mtp
