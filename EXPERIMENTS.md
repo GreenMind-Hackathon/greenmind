@@ -130,6 +130,7 @@ A was 1.00 in every validation run.
 | INT8 with GPTQ calibration (`quantize_int8_gptq.py`, Validation #21) | 87.8 vs 97.2-99.7 for data-free INT8 | Higher J/request (248); one run only, no sign of benefit, not adopted |
 | Synthetic warm-up burst as a benchmark | Predicted Final #4 wrongly | A 24-request burst is not a sustained peak; kept only for kernel warm-up |
 | `--gpu-memory-utilization 0.95` (Final #18) | 98.6, preemptions unchanged | Memory is not the limit at MAXSEQS 64 |
+| Disable image/video inputs (`--limit-mm-per-prompt '{"image":0,"video":0}'`, 24 Oct ~17:58) | Server failed at startup: `AttributeError: 'NoneType' object has no attribute 'size'` in `vllm/model_executor/models/qwen3_next.py`, then `RuntimeError: Engine core initialization failed`; never submitted | The cap of 64 had already lowered peak KV use to ~65%, so we reverted |
 
 ## Reproducibility and compliance
 
